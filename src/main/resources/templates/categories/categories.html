@@ -4,14 +4,14 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <head>
-    <title>Quản lý Danh mục (AJAX RESTful)</title>
+    <title>Quản lý danh mục</title>
 </head>
 <body>
 <section layout:fragment="content">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Quản lý Danh mục (AJAX RESTful API)</h2>
+        <h2>Quản lý danh mục</h2>
         <button class="btn btn-success" onclick="showCreateCategoryModal()">
-            <i class="fas fa-plus me-1"></i> Thêm Danh mục AJAX
+            <i class="fas fa-plus me-1"></i> Thêm danh mục
         </button>
     </div>
 
@@ -50,7 +50,7 @@
             </tr>
             </thead>
             <tbody id="categoryTableBody">
-            <!-- Data loaded via AJAX -->
+            <!-- Loaded via API -->
             </tbody>
         </table>
     </div>
@@ -63,7 +63,7 @@
     <!-- PAGINATION -->
     <nav class="mt-4">
         <ul class="pagination justify-content-center" id="pagination">
-            <!-- Pagination items loaded via AJAX -->
+            <!-- Pagination items loaded via API -->
         </ul>
     </nav>
 
@@ -126,14 +126,12 @@
         </div>
     </div>
 
-    <!-- AJAX JS SCRIPT -->
     <script>
         var currentPage = 0;
 
         $(document).ready(function() {
             loadCategoryPage(0);
 
-            // Handle Add Category Form
             $('#addCategoryForm').submit(function(e) {
                 e.preventDefault();
                 var formData = new FormData(this);
@@ -157,7 +155,6 @@
                 });
             });
 
-            // Handle Update Category Form
             $('#updateCategoryForm').submit(function(e) {
                 e.preventDefault();
                 var formData = new FormData(this);
@@ -217,7 +214,7 @@
 
             $.each(categories, function(i, cat) {
                 var iconHtml = cat.icon ?
-                    '<img src="/uploads/categories/' + cat.icon + '" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;" alt="icon" onerror="this.src=\'/uploads/' + cat.icon + '\';">' :
+                    '<img src="/uploads/categories/' + cat.icon + '" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;" alt="icon" onerror="this.onerror=null; this.src=\'/uploads/' + cat.icon + '\';">' :
                     '<span class="text-muted"><i class="fas fa-folder fa-2x"></i></span>';
 
                 var tr = '<tr>' +
@@ -239,17 +236,14 @@
 
             if (data.totalPages <= 1) return;
 
-            // Previous
             var prevClass = data.first ? 'disabled' : '';
             pagination.append('<li class="page-item ' + prevClass + '"><a class="page-link" href="#" onclick="loadCategoryPage(' + (data.number - 1) + '); return false;">Trước</a></li>');
 
-            // Pages
             for (var i = 0; i < data.totalPages; i++) {
                 var activeClass = (i === data.number) ? 'active' : '';
                 pagination.append('<li class="page-item ' + activeClass + '"><a class="page-link" href="#" onclick="loadCategoryPage(' + i + '); return false;">' + (i + 1) + '</a></li>');
             }
 
-            // Next
             var nextClass = data.last ? 'disabled' : '';
             pagination.append('<li class="page-item ' + nextClass + '"><a class="page-link" href="#" onclick="loadCategoryPage(' + (data.number + 1) + '); return false;">Sau</a></li>');
         }

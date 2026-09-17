@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/categories-ajax")
-public class CategoryAjaxController {
+@RequestMapping("/products")
+public class ProductViewController {
 
     @GetMapping
-    public String categoryAjaxPage() {
-        return "categories/categories";
+    public String productPage() {
+        return "products/products";
     }
 }

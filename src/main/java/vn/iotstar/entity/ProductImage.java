@@ -2,6 +2,8 @@ package vn.iotstar.entity;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,6 +24,7 @@ public class ProductImage {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
+    @JsonIgnore
     private Product product;
 
     @Column(name = "image_url", nullable = false, length = 500)

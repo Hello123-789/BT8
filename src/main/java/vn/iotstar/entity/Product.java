@@ -50,7 +50,7 @@ public class Product implements Serializable {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = jakarta.persistence.FetchType.EAGER)
     @OrderBy("displayOrder ASC")
     private List<ProductImage> images = new ArrayList<>();
 
